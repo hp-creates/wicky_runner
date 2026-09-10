@@ -43,6 +43,13 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
 body {
   font-family: var(--wm-font-sans);
   background-color: var(--wm-bg-base);
@@ -63,15 +70,18 @@ a:hover {
 
 /* Outer Wikipedia Shell */
 .wiki-shell {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: var(--wm-bg-base);
+  overflow-x: hidden;
 }
 
-/* Wikipedia Vector Top Header */
+/* Wikipedia Vector Top Header - Sleek Thin Rectangle */
 .wiki-header {
-  height: 52px;
+  height: 50px;
   background-color: var(--wm-bg-surface);
   border-bottom: 1px solid var(--wm-border-subtle);
   display: flex;
@@ -81,6 +91,8 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .wiki-header-left {
@@ -153,14 +165,19 @@ a:hover {
   line-height: 1;
 }
 
-/* Wikipedia Speedrun Search Bar */
-.wiki-search-container {
+/* Dedicated Wikipedia Speedrun Route Search Panel (Separated from Navbar) */
+.wiki-route-search-panel {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  flex: 1;
-  max-width: 680px;
-  margin: 0 1.5rem;
+  gap: 0.5rem;
+  background-color: var(--wm-bg-subtle);
+  border: 1px solid var(--wm-border-color);
+  border-radius: 3px;
+  padding: 0.6rem 0.85rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .wiki-search-box {
@@ -169,10 +186,11 @@ a:hover {
   background: var(--wm-bg-surface);
   border: 1px solid var(--wm-border-color);
   border-radius: 2px;
-  padding: 0 0.5rem;
+  padding: 0 0.6rem;
   flex: 1;
-  height: 32px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  min-width: 0;
+  height: 34px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .wiki-search-box:focus-within {
@@ -181,11 +199,12 @@ a:hover {
 }
 
 .wiki-input-label {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: bold;
   color: var(--wm-text-secondary);
-  margin-right: 0.35rem;
+  margin-right: 0.4rem;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 .wiki-search-input {
@@ -196,6 +215,7 @@ a:hover {
   font-family: var(--wm-font-sans);
   color: var(--wm-text-primary);
   width: 100%;
+  min-width: 0;
 }
 
 .wiki-search-input::placeholder {
@@ -203,22 +223,41 @@ a:hover {
 }
 
 .wiki-swap-btn {
-  background: var(--wm-bg-subtle);
+  background: var(--wm-bg-surface);
   border: 1px solid var(--wm-border-color);
   border-radius: 2px;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--wm-text-secondary);
+  flex-shrink: 0;
+  transition: all 0.15s ease;
 }
 
 .wiki-swap-btn:hover:not(:disabled) {
-  background: #ffffff;
+  background: #f0f4ff;
   color: var(--wm-link-blue);
   border-color: var(--wm-link-blue);
+}
+
+.wiki-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.wiki-speedrun-btn {
+  height: 34px;
+  white-space: nowrap;
+}
+
+.wiki-random-btn {
+  height: 34px;
+  white-space: nowrap;
 }
 
 /* Wikimedia Buttons */
@@ -279,6 +318,14 @@ a:hover {
   color: var(--wm-link-blue);
 }
 
+.wiki-btn-text {
+  display: inline;
+}
+
+.wiki-btn-text-mobile {
+  display: none;
+}
+
 /* Main Layout Container */
 .wiki-container {
   display: flex;
@@ -286,6 +333,8 @@ a:hover {
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* Wikipedia Vector Left Sidebar */
@@ -296,6 +345,7 @@ a:hover {
   border-right: 1px solid var(--wm-border-subtle);
   background-color: var(--wm-bg-base);
   font-size: 0.82rem;
+  box-sizing: border-box;
 }
 
 .sidebar-section {
@@ -348,6 +398,9 @@ a:hover {
   border-left: 1px solid var(--wm-border-subtle);
   border-right: 1px solid var(--wm-border-subtle);
   min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Vector Tabs (Article | Constellation | Decision Log) */
@@ -399,6 +452,8 @@ a:hover {
   color: #000000;
   line-height: 1.25;
   margin-bottom: 0.25rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Wikipedia Hatnote */
@@ -409,6 +464,8 @@ a:hover {
   padding-left: 0.5rem;
   margin-bottom: 1rem;
   border-left: 2px solid #3366cc;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Live Speedrun Traversal Banner */
@@ -444,11 +501,17 @@ a:hover {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .wiki-main-column {
   flex: 1;
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Wikipedia Infobox */
@@ -695,6 +758,8 @@ a:hover {
   display: inline-block;
   margin-bottom: 1.5rem;
   min-width: 260px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .toc-title {
@@ -728,14 +793,30 @@ a:hover {
   padding-bottom: 0.2rem;
   margin: 1.5rem 0 0.75rem 0;
   color: #000000;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Responsive Table Wrapper */
+.wiki-table-responsive {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--wm-border-color);
+  background-color: var(--wm-bg-surface);
+  box-sizing: border-box;
 }
 
 /* Wikipedia Route Table */
 .wiki-route-table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
   font-size: 0.85rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .wiki-route-table th {
@@ -862,17 +943,37 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  /* 1. Header Navigation on Mobile */
+  /* 1. Header Navigation on Mobile - Sleek Thin Bar */
   .wiki-header {
-    height: auto;
-    min-height: 52px;
-    padding: 0.6rem 0.75rem;
-    flex-wrap: wrap;
-    row-gap: 0.6rem;
+    height: 50px;
+    min-height: 50px;
+    padding: 0 0.65rem;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 0.5rem;
   }
 
   .wiki-header-left {
-    gap: 0.5rem;
+    gap: 0.45rem;
+    min-width: 0;
+    flex-shrink: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .wiki-globe-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .wiki-brand-title {
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
 
   .wiki-brand-subtitle {
@@ -881,41 +982,15 @@ a:hover {
 
   .wiki-header-right {
     gap: 0.35rem;
-  }
-
-  .wiki-header-right .wiki-btn-secondary {
-    padding: 0 0.55rem;
-    font-size: 0.72rem;
-    height: 30px;
-  }
-
-  /* Full-width Search Bar row */
-  .wiki-search-container {
-    order: 3;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .wiki-search-box {
-    flex: 1 1 calc(50% - 24px);
-    min-width: 110px;
-    height: 34px;
-  }
-
-  .wiki-swap-btn {
-    width: 34px;
-    height: 34px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
 
-  .wiki-btn-primary {
-    width: 100%;
-    height: 36px;
-    justify-content: center;
-    font-size: 0.85rem;
+  .wiki-header-btn {
+    padding: 0 0.5rem;
+    font-size: 0.72rem;
+    height: 28px;
   }
 
   /* 2. Slide-out Off-Canvas Sidebar on Mobile */
@@ -950,6 +1025,7 @@ a:hover {
     padding: 1.25rem 1rem;
     border-right: 1px solid var(--wm-border-color);
     animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
   }
 
   @keyframes slideInLeft {
@@ -981,20 +1057,81 @@ a:hover {
 
   /* 3. Main Article Content on Mobile */
   .wiki-content {
-    padding: 1rem 0.75rem;
+    padding: 0.85rem 0.65rem;
     border-left: none;
     border-right: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* Mobile Route Search Panel */
+  .wiki-route-search-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.65rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--wm-bg-subtle);
+    border: 1px solid var(--wm-border-color);
+    border-radius: 3px;
+  }
+
+  .wiki-route-search-panel .wiki-search-box {
+    width: 100%;
+    height: 36px;
+    box-sizing: border-box;
+  }
+
+  .wiki-route-search-panel .wiki-search-input {
+    font-size: 14px;
+  }
+
+  .wiki-route-search-panel .wiki-swap-btn {
+    align-self: center;
+    width: 32px;
+    height: 28px;
+    margin: -2px 0;
+  }
+
+  .wiki-search-actions {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .wiki-speedrun-btn {
+    flex: 2;
+    height: 38px;
+    justify-content: center;
+    font-size: 0.88rem;
+  }
+
+  .wiki-random-btn {
+    flex: 1;
+    height: 38px;
+    justify-content: center;
+    font-size: 0.8rem;
   }
 
   .firstHeading {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     word-break: break-word;
+    overflow-wrap: break-word;
     margin-top: 0.25rem;
+    max-width: 100%;
   }
 
   .hatnote {
     font-size: 0.78rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
     margin-bottom: 0.75rem;
+    max-width: 100%;
   }
 
   .wiki-tabs-bar {
@@ -1003,6 +1140,9 @@ a:hover {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 2px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .wiki-tabs-bar::-webkit-scrollbar {
@@ -1023,22 +1163,40 @@ a:hover {
   .wiki-article-body {
     flex-direction: column;
     gap: 1.25rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .wiki-main-column {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .wiki-infobox {
     width: 100%;
+    max-width: 100%;
     float: none;
     margin: 0 0 1.25rem 0;
+    box-sizing: border-box;
   }
 
   .toc-box {
+    display: block;
     width: 100%;
-    min-width: unset;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* 4. Graph Canvas on Mobile */
   .graph-panel-wrapper {
+    width: 100%;
+    max-width: 100%;
     height: 380px;
+    box-sizing: border-box;
   }
 
   .graph-panel-wrapper.fullscreen {
@@ -1058,14 +1216,6 @@ a:hover {
     top: 12px;
   }
 
-  /* Responsive Table Scrolling */
-  .wiki-route-table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-  }
-
   /* 5. Mobile Full-Screen Decision Drawer */
   .wiki-decision-drawer {
     width: 100%;
@@ -1080,15 +1230,48 @@ a:hover {
   }
 }
 
+@media (max-width: 600px) {
+  /* Hide verbose text in header buttons on mobile to prevent logo overlap */
+  .wiki-btn-text {
+    display: none;
+  }
+
+  .wiki-btn-text-mobile {
+    display: inline;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .wiki-header {
+    padding: 0 0.5rem;
+  }
+
+  .wiki-header-left {
+    gap: 0.35rem;
+  }
+
+  .wiki-brand-title {
+    font-size: 0.84rem;
+    letter-spacing: 0.03em;
+  }
+
+  .wiki-globe-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+
+  .sidebar-toggle-btn {
+    padding: 4px;
+  }
+
+  .wiki-header-btn {
+    padding: 0 0.45rem;
+    height: 28px;
+  }
+}
+
 @media (max-width: 480px) {
-  .wiki-search-box {
-    flex: 1 1 100%;
-  }
-
-  .wiki-swap-btn {
-    margin: 0 auto;
-  }
-
   .graph-panel-wrapper {
     height: 340px;
   }

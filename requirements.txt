@@ -1,3 +1,7 @@
+# Web API Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+
 # Core Networking & API
 requests>=2.32.0
 httpx>=0.28.0

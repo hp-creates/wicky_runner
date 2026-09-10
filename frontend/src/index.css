@@ -845,3 +845,252 @@ a:hover {
   font-weight: bold;
   margin-right: 0.5rem;
 }
+
+/* =========================================================
+   Mobile Orientation Responsiveness (Max-Width: 768px)
+   All rules scoped strictly to mobile viewports.
+   PC-orientation layout remains 100% untouched.
+   ========================================================= */
+
+/* Desktop defaults for mobile-only elements */
+.sidebar-mobile-close-row {
+  display: none;
+}
+
+.wiki-sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* 1. Header Navigation on Mobile */
+  .wiki-header {
+    height: auto;
+    min-height: 52px;
+    padding: 0.6rem 0.75rem;
+    flex-wrap: wrap;
+    row-gap: 0.6rem;
+  }
+
+  .wiki-header-left {
+    gap: 0.5rem;
+  }
+
+  .wiki-brand-subtitle {
+    display: none;
+  }
+
+  .wiki-header-right {
+    gap: 0.35rem;
+  }
+
+  .wiki-header-right .wiki-btn-secondary {
+    padding: 0 0.55rem;
+    font-size: 0.72rem;
+    height: 30px;
+  }
+
+  /* Full-width Search Bar row */
+  .wiki-search-container {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .wiki-search-box {
+    flex: 1 1 calc(50% - 24px);
+    min-width: 110px;
+    height: 34px;
+  }
+
+  .wiki-swap-btn {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  .wiki-btn-primary {
+    width: 100%;
+    height: 36px;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  /* 2. Slide-out Off-Canvas Sidebar on Mobile */
+  .wiki-sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2999;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .wiki-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    z-index: 3000;
+    background-color: var(--wm-bg-surface);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.28);
+    overflow-y: auto;
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--wm-border-color);
+    animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  .sidebar-mobile-close-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--wm-border-subtle);
+  }
+
+  .sidebar-mobile-close-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--wm-bg-subtle);
+    border: 1px solid var(--wm-border-color);
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: var(--wm-text-primary);
+  }
+
+  /* 3. Main Article Content on Mobile */
+  .wiki-content {
+    padding: 1rem 0.75rem;
+    border-left: none;
+    border-right: none;
+  }
+
+  .firstHeading {
+    font-size: 1.45rem;
+    word-break: break-word;
+    margin-top: 0.25rem;
+  }
+
+  .hatnote {
+    font-size: 0.78rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .wiki-tabs-bar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 2px;
+  }
+
+  .wiki-tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wiki-tab {
+    white-space: nowrap;
+    padding: 5px 9px;
+    font-size: 0.78rem;
+  }
+
+  .wiki-tabs-right {
+    display: none;
+  }
+
+  /* Vertical Stack for Article Body & Infobox */
+  .wiki-article-body {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .wiki-infobox {
+    width: 100%;
+    float: none;
+    margin: 0 0 1.25rem 0;
+  }
+
+  .toc-box {
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* 4. Graph Canvas on Mobile */
+  .graph-panel-wrapper {
+    height: 380px;
+  }
+
+  .graph-panel-wrapper.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 5000;
+  }
+
+  .node-inspector-card {
+    width: calc(100% - 24px);
+    left: 12px;
+    right: 12px;
+    top: 12px;
+  }
+
+  /* Responsive Table Scrolling */
+  .wiki-route-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  /* 5. Mobile Full-Screen Decision Drawer */
+  .wiki-decision-drawer {
+    width: 100%;
+    top: 0;
+    z-index: 4000;
+  }
+
+  /* Footer */
+  .wiki-footer {
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .wiki-search-box {
+    flex: 1 1 100%;
+  }
+
+  .wiki-swap-btn {
+    margin: 0 auto;
+  }
+
+  .graph-panel-wrapper {
+    height: 340px;
+  }
+}
+

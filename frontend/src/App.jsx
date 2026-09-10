@@ -34,8 +34,8 @@ export default function App() {
   const [selectedStep, setSelectedStep] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isFullscreenGraph, setIsFullscreenGraph] = useState(false)
-  const [activeTab, setActiveTab] = useState('article') // 'article' | 'graph' | 'matrix'
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [activeTab, setActiveTab] = useState('article')
+  const [sidebarOpen, setSidebarOpen] = useState(typeof window !== 'undefined' ? window.innerWidth > 768 : true)
 
   const [enableLLM, setEnableLLM] = useState(false)
   const [geminiKey, setGeminiKey] = useState('')
@@ -115,6 +115,12 @@ export default function App() {
       console.error(err)
       setErrorMsg(`Speedrun traversal error: ${err.message}`)
       setTraversing(false)
+    }
+  }
+
+  const closeSidebarOnMobile = () => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      setSidebarOpen(false)
     }
   }
 
@@ -259,76 +265,94 @@ export default function App() {
       <div className="wiki-container">
         {/* Vector Left Sidebar */}
         {sidebarOpen && (
-          <aside className="wiki-sidebar">
-            <div className="sidebar-section">
-              <div className="sidebar-heading">Navigation</div>
-              <ul className="sidebar-links">
-                <li className="sidebar-item">
-                  <span
-                    className={`sidebar-link ${activeTab === 'article' ? 'active' : ''}`}
-                    onClick={() => { setActiveTab('article'); setIsFullscreenGraph(false) }}
-                  >
-                    Main Article & Route
-                  </span>
-                </li>
-                <li className="sidebar-item">
-                  <span
-                    className={`sidebar-link ${isFullscreenGraph ? 'active' : ''}`}
-                    onClick={() => setIsFullscreenGraph(true)}
-                  >
-                    Constellation Graph
-                  </span>
-                </li>
-                <li className="sidebar-item">
-                  <span className="sidebar-link" onClick={handleSurpriseMe}>
-                    Random Challenge
-                  </span>
-                </li>
-              </ul>
-            </div>
+          <>
+            <div
+              className="wiki-sidebar-backdrop"
+              onClick={() => setSidebarOpen(false)}
+            />
+            <aside className="wiki-sidebar">
+              <div className="sidebar-mobile-close-row">
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="sidebar-mobile-close-btn"
+                >
+                  <X size={15} />
+                  <span>Close Menu</span>
+                </button>
+              </div>
 
-            <div className="sidebar-section">
-              <div className="sidebar-heading">Curated Speedruns</div>
-              <ul className="sidebar-links">
-                {curatedPairs.slice(0, 6).map((pair, idx) => (
-                  <li key={idx} className="sidebar-item">
+              <div className="sidebar-section">
+                <div className="sidebar-heading">Navigation</div>
+                <ul className="sidebar-links">
+                  <li className="sidebar-item">
                     <span
-                      className="sidebar-link"
-                      onClick={() => {
-                        setStartArticle(pair.start)
-                        setTargetArticle(pair.target)
-                        handleRunSpeedrun(pair.start, pair.target)
-                      }}
-                      title={`${pair.start} ➔ ${pair.target}`}
+                      className={`sidebar-link ${activeTab === 'article' ? 'active' : ''}`}
+                      onClick={() => { setActiveTab('article'); setIsFullscreenGraph(false); closeSidebarOnMobile() }}
                     >
-                      {pair.start} ➔ {pair.target}
+                      Main Article & Route
                     </span>
                   </li>
-                ))}
-              </ul>
-            </div>
+                  <li className="sidebar-item">
+                    <span
+                      className={`sidebar-link ${isFullscreenGraph ? 'active' : ''}`}
+                      onClick={() => { setIsFullscreenGraph(true); closeSidebarOnMobile() }}
+                    >
+                      Constellation Graph
+                    </span>
+                  </li>
+                  <li className="sidebar-item">
+                    <span className="sidebar-link" onClick={() => { handleSurpriseMe(); closeSidebarOnMobile() }}>
+                      Random Challenge
+                    </span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="sidebar-section">
-              <div className="sidebar-heading">Tools & Analysis</div>
-              <ul className="sidebar-links">
-                <li className="sidebar-item">
-                  <span className="sidebar-link" onClick={() => setIsDrawerOpen(true)}>
-                    Decision Matrix
-                  </span>
-                </li>
-                <li className="sidebar-item">
-                  <a
-                    className="sidebar-link"
-                    href={`https://en.wikipedia.org/wiki/${encodeURIComponent(targetArticle.replace(/ /g, '_'))}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Target on Wikipedia <ExternalLink size={11} />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </aside>
+              <div className="sidebar-section">
+                <div className="sidebar-heading">Curated Speedruns</div>
+                <ul className="sidebar-links">
+                  {curatedPairs.slice(0, 6).map((pair, idx) => (
+                    <li key={idx} className="sidebar-item">
+                      <span
+                        className="sidebar-link"
+                        onClick={() => {
+                          setStartArticle(pair.start)
+                          setTargetArticle(pair.target)
+                          handleRunSpeedrun(pair.start, pair.target)
+                          closeSidebarOnMobile()
+                        }}
+                        title={`${pair.start} ➔ ${pair.target}`}
+                      >
+                        {pair.start} ➔ {pair.target}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="sidebar-section">
+                <div className="sidebar-heading">Tools & Analysis</div>
+                <ul className="sidebar-links">
+                  <li className="sidebar-item">
+                    <span className="sidebar-link" onClick={() => { setIsDrawerOpen(true); closeSidebarOnMobile() }}>
+                      Decision Matrix
+                    </span>
+                  </li>
+                  <li className="sidebar-item">
+                    <a
+                      className="sidebar-link"
+                      href={`https://en.wikipedia.org/wiki/${encodeURIComponent(targetArticle.replace(/ /g, '_'))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={closeSidebarOnMobile}
+                    >
+                      Target on Wikipedia <ExternalLink size={11} />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </aside>
+          </>
         )}
 
         {/* 3. Main Wikipedia Article Content */}

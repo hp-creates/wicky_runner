@@ -507,7 +507,10 @@ export default function FloatingGraph({
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onWheel={handleWheel}
-        style={{ display: 'block', width: '100%', height: '100%' }}
+        onTouchStart={handleMouseDown}
+        onTouchMove={handleMouseMove}
+        onTouchEnd={handleMouseUp}
+        style={{ display: 'block', width: '100%', height: '100%', touchAction: 'none' }}
       />
 
       {/* Graph Header Badge & Fullscreen Toggle */}

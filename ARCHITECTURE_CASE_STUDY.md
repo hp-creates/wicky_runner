@@ -1,5 +1,7 @@
 # 📚 WikiSpeedrunner AI: Architectural Case Study & Engineering Guide
 > **Disclaimer**: This codebase is rewritten and improved version of the original version written by me. New code is written be us (Me and AI). Frontend design decisions were made by me.
+>
+> 🌐 **Live Web Application**: [**https://wicky-runner.onrender.com/**](https://wicky-runner.onrender.com/)
 
 > **Topic**: How we refactored a brittle, failing AI script into a high-performance, deterministic graph traversal engine.
 

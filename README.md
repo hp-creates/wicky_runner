@@ -3,6 +3,8 @@
 > High-Performance Bidirectional Informed Graph Traversal Engine & Wikipedia Route Navigator.
 > Autonomously discovers the shortest, fastest acyclic path between any two Wikipedia articles using graph heuristics, backlinks intersection, and optional LLM guidance.
 
+🌐 **Live Web Application**: [**https://wicky-runner.onrender.com/**](https://wicky-runner.onrender.com/)
+
 > 📖 **Engineering Retrospective**: Read the in-depth architectural breakdown, refactoring lessons, and algorithmic proofs in [**ARCHITECTURE_CASE_STUDY.md**](ARCHITECTURE_CASE_STUDY.md).
 
 ---
